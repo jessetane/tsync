@@ -1,0 +1,35 @@
+{
+  "name": "tsync",
+  "version": "1.0.0",
+  "description": "Sync globs of files from `src/*` to `dest` transforming them along the way with a pipeline of stream-friendly programs.",
+  "keywords": [
+    "gulp",
+    "shell",
+    "transform",
+    "pipeline",
+    "stream",
+    "rsync",
+    "sync",
+    "unix"
+  ],
+  "dependencies": {
+    "minimist": "^1.1.0",
+    "through2": "^0.6.3",
+    "vinyl-fs": "^0.3.13"
+  },
+  "devDependencies": {
+    "coffee-script": "^1.8.0",
+    "html-minifier-cli": "^0.1.0",
+    "jade": "^1.7.0",
+    "less": "^2.1.0",
+    "uglify-js": "^2.4.15"
+  },
+  "scripts": {
+    "test": "test/index.sh"
+  },
+  "bin": {
+    "tsync": "index.js"
+  },
+  "repository": "https://github.com/jessetane/tsync",
+  "author": "Jesse Tane <jesse.tane@gmail.com>"
+}
