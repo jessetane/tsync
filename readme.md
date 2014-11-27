@@ -58,7 +58,7 @@ $ tsync [OPTION] 'src-glob' transform ['otherTransform --option'] [..] dest
 * -x --extension <u>extension</u>  
 Change file extensions to <u>extension</u> before writing to `dest`.
 
-#### `src-glob`
+#### `'src-glob'`
 The [glob](https://github.com/isaacs/node-glob#glob) pattern to use when finding files. Be careful to quote your src-glob pattern as your shell may perform expansion before `tsync` gets invoked!
 
 #### `transform`
