@@ -29,8 +29,11 @@ var pipeline = thru.obj(function(file, enc, cb) {
   for (var i=0; i<transforms.length; i++) {
     var transform = transforms[i];
     var parts = transform.split(' ');
-    var proc = spawn(parts[0], parts.slice(1));
+    var cmd = parts[0];
+    var args = parts.slice(1);
     var status = 0;
+
+    var proc = spawn(cmd, args);
 
     proc.stderr.pipe(process.stderr);
     proc.stderr.on('close', function() {
@@ -53,6 +56,7 @@ var pipeline = thru.obj(function(file, enc, cb) {
 
   file.contents.pipe(first.stdin);
   file.contents = last.stdout.pipe(thru());
+  
   cb(null, file);
 });
 
