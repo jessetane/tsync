@@ -15,7 +15,7 @@ $ tree
 1 directory, 1 file
 ```
 
-Using `tsync` we can sync the files in the `src` directory into a new directory `dest` that doesn't yet exist, transforming them along the way with `sed`:
+Using `tsync` we can sync the files in the `src` directory into a new directory `dest` that doesn't yet exist, transforming them along the way with [sed](http://en.wikipedia.org/wiki/Sed):
 ```bash
 $ tsync 'src/*' 'sed s/a/b/' dest
 ```
@@ -56,7 +56,7 @@ $ tsync [OPTION] 'src-glob' transform [..] ['otherTransform --option'] dest
 Change file extensions to <u>extension</u> before writing to `dest`.
 
 * -c --concurrency <u>concurrency</u>  
-The maximum number of concurrent pipelines. Defaults to 50.
+The maximum number of concurrent pipelines. Defaults to 100.
 
 #### `'src-glob'`
 The pattern to use when [globbing](https://github.com/isaacs/node-glob#glob) files. Be careful to quote your pattern as your shell may perform expansion before `tsync` gets invoked!
