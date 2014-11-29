@@ -13,7 +13,7 @@ if [ ! -d fixtures ]; then
   mkdir fixtures
 
   for i in {1..1000}; do
-    < /dev/urandom\
+    head /dev/urandom\
       | LC_CTYPE=C tr -dc 'a-z0-9'\
       | fold -w 16\
       | head -n 1\
@@ -21,4 +21,4 @@ if [ ! -d fixtures ]; then
   done
 fi
 
-time $tsync -c 9999 'fixtures/**/*.txt' 'sed s/a/b/' 'tr [:lower:] [:upper:]' build
+time $tsync -c 9999 -x html 'fixtures/**/*.txt' 'sed s/a/b/' 'tr [:lower:] [:upper:]' build
