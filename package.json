@@ -26,7 +26,8 @@
     "uglify-js": "^2.4.15"
   },
   "scripts": {
-    "test": "test/index.sh"
+    "test": "test/index.sh",
+    "perf": "perf/index.sh"
   },
   "bin": {
     "tsync": "bin/tsync"
