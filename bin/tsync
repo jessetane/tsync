@@ -12,6 +12,7 @@ var src = args[0];
 var dest = args.slice(-1)[0];
 var transforms = args.slice(1, -1);
 var concurrency = argv.c || argv.concurrency || 100;
+var extension = argv.x || argv.extension;
 
 if (args.length < 3) {
   console.error('usage: tsync \'src-glob\' transform [\'otherTransform --option\'] [..] dest');
@@ -28,8 +29,8 @@ var pipeline = thru.obj(function(file, enc, cb) {
   if (file.isNull()) return cb();
 
   q.push(function(qcb) {
-    if (argv.x || argv.extension) {
-      file.path = file.path.replace(/(.*\.).*/, '$1' + (argv.x || argv.extension));
+    if (extension) {
+      file.path = file.path.replace(/(.*\.).*/, '$1' + extension);
     }
 
     var first = null;
