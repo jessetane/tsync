@@ -75,7 +75,7 @@ The destination directory transformed files will be synced to.
 
 ## Releases
 The latest stable version is published to [npm](https://www.npmjs.org/package/tsync).
-* [1.1.0](https://github.com/jessetane/tsync/releases/tag/1.1.0)
+* [1.1.x](https://github.com/jessetane/tsync/releases/tag/1.1.3)
  * Added concurrency control
 * [1.0.0](https://github.com/jessetane/tsync/releases/tag/1.0.0)
  * First release
