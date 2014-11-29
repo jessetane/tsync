@@ -1,6 +1,9 @@
 # tsync
 Sync a [glob](https://github.com/isaacs/node-glob#glob) of files through a [unix pipeline](http://en.wikipedia.org/wiki/Pipeline_%28Unix%29) to a destination directory.
 
+[![npm](http://img.shields.io/npm/v/tsync.svg?style=flat-square)](http://www.npmjs.org/tsync)
+[![tests](https://img.shields.io/travis/jessetane/tsync.svg?style=flat-square&branch=master)](https://travis-ci.org/jessetane/tsync)
+
 ## Why
 So you can transform and sync files [Gulp](http://gulpjs.com/) style, but at the process level via the [universal interface](http://en.wikipedia.org/wiki/Standard_streams).
 
