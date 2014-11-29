@@ -28,11 +28,11 @@ var output = vfs.dest(dest);
 var pipeline = thru.obj(function(file, enc, cb) {
   if (file.isNull()) return cb();
 
-  q.push(function(qcb) {
-    if (extension) {
-      file.path = file.path.replace(/(.*\.).*/, '$1' + extension);
-    }
+  if (extension) {
+    file.path = file.path.replace(/(.*\.).*/, '$1' + extension);
+  }
 
+  q.push(function(qcb) {
     var first = null;
     var last = null;
 
