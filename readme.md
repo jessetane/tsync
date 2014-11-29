@@ -1,14 +1,8 @@
 # tsync
-Sync [globs](https://github.com/isaacs/node-glob#glob) of files from `src/*` to `dest` transforming them along the way with a pipeline of stream-friendly programs (ones that read from stdin and write to stdout).
+Sync a [glob](https://github.com/isaacs/node-glob#glob) of files through a [unix pipeline](http://en.wikipedia.org/wiki/Pipeline_%28Unix%29) to a destination directory.
 
 ## Why
-I really like how easy [Gulp](https://github.com/gulpjs/gulp) makes it to accomplish the feat described above. I really _don't_ like that Gulp is also a "task runner", and that it can only be used with bespoke plugins. `tsync` takes what is in my opinion the best part of Gulp (check out [vinyl-fs](https://github.com/wearefractal/vinyl-fs)) and makes it play nice with existing tools.
-
-Rant 1
-> You're already using a task runner. It's your shell. Whether you use `bash`, `zsh`, `fish` or something else doesn't really matter as long as it can fork a child process. It's perfectly acceptable for "tasks" to simply be executable programs or shell scripts in a "bin" folder. You can write them in any language you like! Just use the appropriate [shabang](http://tldp.org/LDP/abs/html/sha-bang.html).
-
-Rant 2
-> Plugins are an anti-pattern. In certain cases the need for them is unavoidable, but in this one they are largely unnecessary. With tsync, any stream-friendly program can be used as a transform, which means tons of existing tools will Just Work, and any new transforms you write (again, in any language you like) will be flexible enough to remain useful in their own right.
+So you can transform and sync files [Gulp](http://gulpjs.com/) style, but at the process level via the [universal interface](http://en.wikipedia.org/wiki/Standard_streams).
 
 ## How
 Consider the following directory tree:
@@ -21,7 +15,7 @@ $ tree
 1 directory, 1 file
 ```
 
-Using `tsync` we can sync the files in the `src` directory into a new directory `dest` that doesn't yet exist, transforming them along the way with `sed` (a program that is about 35 years old):
+Using `tsync` we can sync the files in the `src` directory into a new directory `dest` that doesn't yet exist, transforming them along the way with `sed`:
 ```bash
 $ tsync 'src/*' 'sed s/a/b/' dest
 ```
@@ -38,6 +32,9 @@ $ tree
 2 directories, 2 files
 ```
 
+### Note
+> In the example above only one pipeline gets created as there is only one file to sync - a unique pipeline is required for each file being synced however, and all pipelines execute concurrently. To control resource consumption an artificial limit of 100 concurrently active pipelines is imposed. You can use the `-c` option to adjust this limit.
+
 ## Install
 ```bash
 $ npm install tsync [-g]
@@ -47,34 +44,36 @@ $ npm install tsync [-g]
 ```bash
 $ npm test
 ```
-**Note:** The tests will probably only run in unix-like environments since they require the external dependencies `bash` and `diff`.
+**Note:** Currently the tests will probably only run in unix-like environments since they require the external dependencies `bash` and `diff`.
 
 ## Use
 ```bash
-$ tsync [OPTION] 'src-glob' transform ['otherTransform --option'] [..] dest
+$ tsync [OPTION] 'src-glob' transform [..] ['otherTransform --option'] dest
 ```
 
 #### `[OPTION]`
 * -x --extension <u>extension</u>  
 Change file extensions to <u>extension</u> before writing to `dest`.
 
+* -c --concurrency <u>concurrency</u>  
+The maximum number of concurrent pipelines. Defaults to 50.
+
 #### `'src-glob'`
-The [glob](https://github.com/isaacs/node-glob#glob) pattern to use when finding files. Be careful to quote your src-glob pattern as your shell may perform expansion before `tsync` gets invoked!
+The pattern to use when [globbing](https://github.com/isaacs/node-glob#glob) files. Be careful to quote your pattern as your shell may perform expansion before `tsync` gets invoked!
 
 #### `transform`
 A transform program. The transform should be a stream-friendly program that reads from stdin, and writes to stdout. You must specify at least one transform. If you don't need to transform anything, use `cp -R` or `rsync -au` to sync files.
 
-#### `['otherTransform --option']`
-If you need to pass options to a transform make sure to quote the full command string.
-
-#### `[..]`
-You can pass as many transforms as you like, `tsync` will pipe them together for you.
+#### `[..] ['otherTransform --option']`
+You can pass as many transforms as you like, `tsync` will pipe them together for you. If you need to pass options to a transform make sure to quote the full command string.
 
 #### `dest`
-The destination directory `tsync` should sync the transformed versions of the files matched by `src-glob` to.
+The destination directory transformed files will be synced to.
 
 ## Releases
 The latest stable version is published to [npm](https://www.npmjs.org/package/tsync).
+* [1.1.0](https://github.com/jessetane/tsync/releases/tag/1.1.0)
+ * Added concurrency control
 * [1.0.0](https://github.com/jessetane/tsync/releases/tag/1.0.0)
  * First release
 

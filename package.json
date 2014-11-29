@@ -1,7 +1,7 @@
 {
   "name": "tsync",
   "version": "1.0.0",
-  "description": "Sync globs of files from `src/*` to `dest` transforming them along the way with a pipeline of stream-friendly programs.",
+  "description": "Sync a glob of files through a unix pipeline to a destination directory.",
   "keywords": [
     "gulp",
     "shell",
