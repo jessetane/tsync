@@ -14,6 +14,7 @@
   ],
   "dependencies": {
     "minimist": "^1.1.0",
+    "queue": "git://github.com/jessetane/queue#npmignore",
     "through2": "^0.6.3",
     "vinyl-fs": "^0.3.13"
   },
@@ -28,7 +29,7 @@
     "test": "test/index.sh"
   },
   "bin": {
-    "tsync": "index.js"
+    "tsync": "bin/tsync"
   },
   "repository": "https://github.com/jessetane/tsync",
   "author": "Jesse Tane <jesse.tane@gmail.com>"
