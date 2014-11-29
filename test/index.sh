@@ -6,22 +6,26 @@ cd "$(dirname "$BASH_SOURCE")"
 
 tsync="../bin/tsync"
 
+echo "TAP version 13"
+echo ""
+echo "1..5"
+
 # coffee-script
 $tsync -x js 'fixtures/**/*.coffee' 'coffee -c --stdio' actual
-echo "✓ coffee-script"
+echo "ok 1 - coffee-script ✓"
 
 # html repair and minify
 $tsync 'fixtures/**/*.html' htmlmin actual
-echo "✓ htmlmin"
+echo "ok 2 - htmlmin ✓"
 
 # jade + uglify
 $tsync -x js 'fixtures/**/*.jade' 'jade -cD' uglifyjs actual
-echo "✓ jade + uglify"
+echo "ok 3 - jade + uglify ✓"
 
 # lessc
 $tsync --extension css 'fixtures/**/*.less' 'lessc -' actual
-echo "✓ lessc"
+echo "ok 4 - lessc ✓"
 
 # diff actual against expected
 diff -r actual expected
-echo -e "\n✓ build matches expected output"
+echo "ok 5 - build matches expected output ✓"
