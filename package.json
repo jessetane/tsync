@@ -1,6 +1,6 @@
 {
   "name": "tsync",
-  "version": "1.1.1",
+  "version": "1.1.2",
   "description": "Sync a glob of files through a unix pipeline to a destination directory.",
   "keywords": [
     "gulp",
