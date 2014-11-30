@@ -11,7 +11,7 @@ var args = argv._;
 var src = args[0];
 var dest = args.slice(-1)[0];
 var transforms = args.slice(1, -1);
-var concurrency = argv.c || argv.concurrency || 100;
+var concurrency = argv.c || argv.concurrency || Infinity;
 var extension = argv.x || argv.extension;
 
 if (args.length < 3) {

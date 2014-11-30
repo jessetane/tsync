@@ -5,7 +5,7 @@ Sync a [glob](https://github.com/isaacs/node-glob#glob) of files through a [unix
 [![tests](https://img.shields.io/travis/jessetane/tsync.svg?style=flat-square&branch=master)](https://travis-ci.org/jessetane/tsync)
 
 ## Why
-So you can transform and sync files [Gulp](http://gulpjs.com/) style, but at the process level via the [universal interface](http://en.wikipedia.org/wiki/Standard_streams).
+So you can transform and sync files [gulp](http://gulpjs.com/)-style, but at the process level via the [universal interface](http://en.wikipedia.org/wiki/Standard_streams).
 
 ## How
 Consider the following directory tree:
@@ -36,7 +36,7 @@ $ tree
 ```
 
 ### Note
-> In the example above only one pipeline gets created as there is only one file to sync - a unique pipeline is required for each file being synced however, and all pipelines execute concurrently. To control resource consumption an artificial limit of 100 concurrently active pipelines is imposed. You can use the `-c` option to adjust this limit.
+> In the example above only one pipeline gets created as there is only one file to sync - a unique pipeline is required for each file being synced however, and all pipelines execute concurrently. You can use the [`-c`](https://github.com/jessetane/tsync#option) flag if you need to limit the number of concurrent pipelines.
 
 ## Install
 ```bash
@@ -59,7 +59,7 @@ $ tsync [OPTION] 'src-glob' transform [..] ['otherTransform --option'] dest
 Change file extensions to <u>extension</u> before writing to `dest`.
 
 * -c --concurrency <u>concurrency</u>  
-The maximum number of concurrent pipelines. Defaults to 100.
+The maximum number of concurrent pipelines. Defaults to `Infinity`.
 
 #### `'src-glob'`
 The pattern to use when [globbing](https://github.com/isaacs/node-glob#glob) files. Be careful to quote your pattern as your shell may perform expansion before `tsync` gets invoked!
@@ -74,11 +74,13 @@ You can pass as many transforms as you like, `tsync` will pipe them together for
 The destination directory transformed files will be synced to.
 
 ## Releases
-The latest stable version is published to [npm](https://www.npmjs.org/package/tsync).
+The latest stable release is published to [npm](https://www.npmjs.org/package/tsync). Tarballs for each release can be found [here](https://github.com/jessetane/tsync/releases).
+* [1.2.x](https://github.com/jessetane/tsync/releases/tag/1.2.0)
+ * Changed default concurrency to `Infinity`.
 * [1.1.x](https://github.com/jessetane/tsync/releases/tag/1.1.4)
- * Added concurrency control
+ * Added concurrency control.
 * [1.0.0](https://github.com/jessetane/tsync/releases/tag/1.0.0)
- * First release
+ * First release.
 
 ## License
 Copyright © 2014 Jesse Tane <jesse.tane@gmail.com>
